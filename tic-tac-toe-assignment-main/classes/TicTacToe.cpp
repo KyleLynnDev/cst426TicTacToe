@@ -88,6 +88,10 @@ bool TicTacToe::actionForEmptyHolder(BitHolder *holder)
     //    (Beginner hint: always check pointers before using them.)
     //    if (!holder) return false;
 
+    if( checkForWinner() != nullptr){
+        return false;
+    }
+
     if (holder == nullptr){
         return false;
     }
