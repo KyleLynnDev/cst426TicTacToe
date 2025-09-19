@@ -1,2 +1,3 @@
 # cst426TicTacToe
 
+This project was a bit of a challenge compared to the first one. I thought I was going crazy when my work partner Freddie and I couldn't get anything to display, so I was happy to find out there was just a bug preventing the starting windows from rendering. As with last time, starting early and working together is the only way we were able to get through each method. It was a little fun to learn the ins and outs of how each method is arranged, but I admit I am still very weak with my C++ skills. I do not feel like I could write a game like this from scratch yet, but maybe this will prove to be good practice to get there, I am feeling a lot more confident than I did a month ago with all this. Writing C++ will continue until morale improves. 
