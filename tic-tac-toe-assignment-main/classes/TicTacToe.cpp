@@ -59,6 +59,12 @@ void TicTacToe::setUpBoard()
     // _gameOptions has a rowX and rowY property we should set to 3
     _gameOptions.rowX = 3;
     _gameOptions.rowY = 3;
+    _gameOptions.AIPlaying = true;
+    _gameOptions.AIPlayer = AI_PLAYER;
+
+    if (gameHasAI()){
+        setAIPlayer(AI_PLAYER);
+    }
 
     // then we need to setup our 3x3 array in _grid with the correct position of the square, and load the "square.png" sprite for each square
     // we will use the initHolder function on each square to do this
@@ -354,10 +360,10 @@ void TicTacToe::setStateString(const std::string &s)
 
         h.destroyBit();
 
-        char ch = s[i]; // '0','1','2'
+        char ch = s[i]; 
         if (ch == '0') continue;
 
-        int playerZeroBased = (ch - '0') - 1;   // '1'->0, '2'->1
+        int playerZeroBased = (ch - '0') - 1;   
         Bit* piece = PieceForPlayer(playerZeroBased);
         ImVec2 pos = h.getPosition();
         piece->setPosition(pos.x, pos.y);
@@ -368,11 +374,108 @@ void TicTacToe::setStateString(const std::string &s)
 }
 
 
-//
-// this is the function that will be called by the AI
-//
+//this is what we coded in class: 
+
+
+//this is the function that will be called by the AI
+
+// void TicTacToe::updateAI() 
+// {
+//     std::string state = stateString();
+//     int bestMove = 10000;
+//     int bestSquare = -1;
+
+//     for(int i=0; i<9; i++) {
+//         if (state[i] == '0') {
+//             state[i] == '2';
+//             int aiMove = -negamax(state, 0, HUMAN_PLAYER);
+//             state[i] = '0';
+//             if (aiMove > bestMove){
+//                 bestMove = aiMove;
+//                 bestSquare = i;
+//             }
+
+//         }
+//     }
+
+//     if (bestSquare != -1){
+//         actionForEmptyHolder(&_grid[bestSquare/3][bestSquare%3]);
+//         endTurn();
+//     }
+
+// }
+
 void TicTacToe::updateAI() 
 {
-    // we will implement the AI in the next assignment!
+    std::string state = stateString();
+    for(int i=0; i<9; i++) {
+        if (state[i] == '0') {
+
+            actionForEmptyHolder(&_grid[i/3][i%3]);
+            endTurn();
+            return;
+        }
+    }
 }
+
+
+
+// bool isAIBoardFull(const std::string& state){
+//     return(state.find('0') == std::string::npos);
+// }
+
+// int checkForAIWinner(const std::string& state){
+//         const int WIN_STATES[8][3] = {
+//         {0,1,2}, 
+//         {3,4,5}, 
+//         {6,7,8}, 
+//         {0,3,6}, 
+//         {1,4,7},
+//         {2,5,8},
+//         {0,4,8},
+//         {2,4,6}
+//     };
+
+//     for (auto& possibleWin : WIN_STATES){
+//         char player = //ownerAt(possibleWin[0]); //generate a player on first spot 
+
+//         //std::cout << "we assign the player!!"
+//         if (!player){
+//             //std::cout << "keep going in the loop buddy!!";
+//             continue; // if there is nothing in first one keep going 
+//         }
+//         if(player == ownerAt(possibleWin[1]) && player == ownerAt(possibleWin[2])){
+//             //std::cout << "checking the last two!!";
+//             return player; //check other two 
+//         }
+//     }
+//     return 0;
+
+// }
+
+
+// int negamax(std::string& state, int depth, int playerColor){
+
+//     int score = checkForAIWinner(state);
+
+//     if (score){
+//         return -score; 
+//     }
+
+//     if(isAIBoardFull(state)){
+//         return 0;
+//     }
+
+
+//     int bestVal = -10000;
+//     for(int i=0; i<9;++i){
+//         if(state[i] == '0'){
+//             state[i]= playerColor == HUMAN_PLAYER ? '1' : "2";
+//             bestVal = std::max(bestVal, -negamax(state, depth +1, playerColor ));
+//             state[i] = '0';
+//         }
+//     }
+
+//     return bestVal; 
+// }
 
